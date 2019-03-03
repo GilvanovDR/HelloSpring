@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Client -->
+    <bean id="client" class="HelloSpring.Beans.Client">
+        <constructor-arg value="1"/>
+        <constructor-arg value="Mr Smith"/>
+        <property name="greeting" value="Hello there"/>
+
+    </bean>
+    <!-- /Client -->
+
+    <!-- loggers -->
+    <import resource="loggers.xml"/>
+    <!-- /loggers -->
+
+
+    <bean id="app" class="HelloSpring.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="cacheFileLogger"/><!-- loggers -->
+    </bean>
+    <bean id="event" class="HelloSpring.Beans.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+        </constructor-arg>
+    </bean>
+
+
+
+
+
+
+</beans>
