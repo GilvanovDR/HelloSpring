@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     <!-- Client -->
     <bean id="client" class="HelloSpring.Beans.Client">
         <constructor-arg value="1"/>
@@ -20,6 +21,12 @@
     <bean id="app" class="HelloSpring.App">
         <constructor-arg ref="client"/>
         <constructor-arg ref="cacheFileLogger"/><!-- loggers -->
+        <constructor-arg>
+            <map>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+                <entry key="INFO" value-ref="consoleEventLogger"/>
+            </map>
+        </constructor-arg>
     </bean>
     <bean id="event" class="HelloSpring.Beans.Event" scope="prototype">
         <constructor-arg>
@@ -29,6 +36,7 @@
             <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
         </constructor-arg>
     </bean>
+
 
 
 
